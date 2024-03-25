@@ -1,6 +1,28 @@
 def conv_dec_to_bin(dec)->str:
-    # TODO: implement algorithm to convert decimal value to binary value
-    return
+    arr_dec_octet = ip_addr.split(".")
+    arr_bin_octet = ""
+    # convert dec to bin
+    for count, octet in enumerate(arr_dec_octet):
+        arr_bin, dec, i = [], int(octet), 0
+        while dec != 0 or i < 8:
+            if dec != 0:
+                arr_bin.append(dec % 2)
+                dec = dec // 2
+                i += 1
+            else:
+                arr_bin.append(0)
+                i += 1
+        # read out arr_bin backwards
+        x, res = 7, ""
+        while x >= 0:
+            res = res + str(arr_bin[x])
+            x = x - 1
+        if count < 3:
+            arr_bin_octet = arr_bin_octet + str(res) + "."
+        else:
+            arr_bin_octet = arr_bin_octet + str(res)
+    print(f"IP-address in binary: {arr_bin_octet}")
+    return arr_bin_octet
 
 
 def check_valid_input(ip_addr)->bool:
@@ -36,6 +58,8 @@ def check_valid_input(ip_addr)->bool:
 
 
 if __name__ == '__main__':
-    ip_addr = "172.32.255.1"
+    ip_addr = "10.01.1.1"
     sn_mask = "255.255.0.0"
     check_valid_input(ip_addr)
+    conv_dec_to_bin("172.32.255.1")
+
