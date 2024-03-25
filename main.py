@@ -1,5 +1,5 @@
-def conv_dec_to_bin(dec)->str:
-    arr_dec_octet = ip_addr.split(".")
+def conv_dec_to_bin(addr)->str:
+    arr_dec_octet = addr.split(".")
     arr_bin_octet = ""
     # convert dec to bin
     for count, octet in enumerate(arr_dec_octet):
@@ -21,7 +21,6 @@ def conv_dec_to_bin(dec)->str:
             arr_bin_octet = arr_bin_octet + str(res) + "."
         else:
             arr_bin_octet = arr_bin_octet + str(res)
-    print(f"IP-address in binary: {arr_bin_octet}")
     return arr_bin_octet
 
 
@@ -61,5 +60,6 @@ if __name__ == '__main__':
     ip_addr = "10.01.1.1"
     sn_mask = "255.255.0.0"
     check_valid_input(ip_addr)
-    conv_dec_to_bin("172.32.255.1")
+    print(conv_dec_to_bin(ip_addr))
+    print(conv_dec_to_bin(sn_mask))
 
