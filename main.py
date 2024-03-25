@@ -24,6 +24,16 @@ def conv_dec_to_bin(addr)->str:
     return arr_bin_octet
 
 
+def conv_bin_to_dec:
+    # TODO: set up method
+    return
+
+
+def get_subnet_information():
+    # TODO: set up method (information can be such as: netID, broadcast, first/last usable IP, Gateway?)
+    return
+
+
 def check_valid_input(ip_addr)->bool:
     # separate the octets to arr with 4 entries
     arr_octet = ip_addr.split(".")
@@ -57,9 +67,8 @@ def check_valid_input(ip_addr)->bool:
 
 
 if __name__ == '__main__':
-    ip_addr = "10.01.1.1"
+    ip_addr = "10.10.1.2"
     sn_mask = "255.255.0.0"
     check_valid_input(ip_addr)
     print(conv_dec_to_bin(ip_addr))
     print(conv_dec_to_bin(sn_mask))
-
