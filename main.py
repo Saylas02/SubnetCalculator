@@ -24,7 +24,7 @@ def conv_dec_to_bin(addr)->str:
     return arr_bin_octet
 
 
-def conv_bin_to_dec:
+def conv_bin_to_dec():
     # TODO: set up method
     return
 
