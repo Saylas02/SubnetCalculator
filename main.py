@@ -45,7 +45,7 @@ def addr_bin_to_dec(addr) -> str:
     for count, octet in enumerate(arr_bin_oct):
         value = 0
         for exp, bit in enumerate(reversed(octet)):
-            value = value + ((2**(exp))*int(bit))
+            value = value + ((2 ** exp) * int(bit))
         if count < len(arr_bin_oct) - 1:
             dec_octet = dec_octet + str(value) + "."
         else:
@@ -56,7 +56,7 @@ def addr_bin_to_dec(addr) -> str:
 def octet_bin_to_dec(i_bin) -> int:
     o_dec = 0
     for exp, bit in enumerate(reversed(i_bin)):
-        o_dec = o_dec + ((2 ** (exp)) * int(bit))
+        o_dec = o_dec + ((2 ** exp) * int(bit))
     return o_dec
 
 
@@ -65,31 +65,32 @@ def get_subnet_information():
     return
 
 
-def check_valid_input(ip_addr) -> bool:
+def check_valid_input(ip_address) -> bool:
     # separate the octets to arr with 4 entries
-    arr_octet = ip_addr.split(".")
+    arr_octet = ip_address.split(".")
     if len(arr_octet) != 4:
         print("The IP-address does not have 4 octets. Please enter valid IP-Address and run again!")
         return False
 
     for count, octet in enumerate(arr_octet):
         if int(octet) < 0 or int(octet) > 255:
-            print(f"The range of octet {count+1} is too big. Octets must have a size between 0 and 255! Currently: {octet}")
+            print(f"The range of octet {count+1} is too big. "
+                  f"Octets must have a size between 0 and 255! Currently: {octet}")
             return False
 
     # Class A Net between 10.0.0.0 and 10.255.255.255
     if int(arr_octet[0]) == 10:
-        print(f"Class A-Net (between 10.0.0.0 and 10.255.255.255) Currently {ip_addr}")
+        print(f"Class A-Net (between 10.0.0.0 and 10.255.255.255) Currently {ip_address}")
         return True
 
     # Class B Net between 172.16.0.0 and 172.31.255.255
     elif int(arr_octet[0]) == 172 and int(arr_octet[1]) < 32 and int(arr_octet[0]) == 172 and int(arr_octet[1]) > 15:
-        print(f"Class B-Net (between 172.16.0.0 and 172.31.255.255) Currently {ip_addr}")
+        print(f"Class B-Net (between 172.16.0.0 and 172.31.255.255) Currently {ip_address}")
         return True
 
     # Class C Net between 192.168.0.0 and 192.168.255.255
     elif int(arr_octet[0]) == 192 and int(arr_octet[1]) == 168:
-        print(f"Class C-Net (between 192.168.0.0 and 192.168.255.255) Currently {ip_addr}")
+        print(f"Class C-Net (between 192.168.0.0 and 192.168.255.255) Currently {ip_address}")
         return True
 
     else:
@@ -102,4 +103,3 @@ if __name__ == '__main__':
     sn_mask = "255.255.0.0"
     print(octet_dec_to_bin(1034656421))
     print(octet_bin_to_dec("00010101010101010101010011"))
-
