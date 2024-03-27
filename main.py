@@ -1,4 +1,4 @@
-def conv_dec_to_bin(addr)->str:
+def addr_dec_to_bin(addr) -> str:
     arr_dec_octet = addr.split(".")
     bin_octet = ""
     # convert dec to bin
@@ -24,7 +24,22 @@ def conv_dec_to_bin(addr)->str:
     return bin_octet
 
 
-def conv_bin_to_dec(addr):
+def octet_dec_to_bin(i_dec) -> []:
+    o_bin, arr_bin, i = 0, [], 0
+    while i_dec != 0:
+        if i_dec != 0:
+            arr_bin.append(i_dec % 2)
+            i_dec = i_dec // 2
+            i += 1
+        else:
+            arr_bin.append(0)
+            i += 1
+    o_bin = arr_bin
+    o_bin.reverse()
+    return o_bin
+
+
+def addr_bin_to_dec(addr) -> str:
     arr_bin_oct = addr.split(".")
     dec_octet = ""
     for count, octet in enumerate(arr_bin_oct):
@@ -38,12 +53,19 @@ def conv_bin_to_dec(addr):
     return dec_octet
 
 
+def octet_bin_to_dec(i_bin) -> int:
+    o_dec = 0
+    for exp, bit in enumerate(reversed(i_bin)):
+        o_dec = o_dec + ((2 ** (exp)) * int(bit))
+    return o_dec
+
+
 def get_subnet_information():
     # TODO: set up method (information can be such as: netID, broadcast, first/last usable IP, Gateway?)
     return
 
 
-def check_valid_input(ip_addr)->bool:
+def check_valid_input(ip_addr) -> bool:
     # separate the octets to arr with 4 entries
     arr_octet = ip_addr.split(".")
     if len(arr_octet) != 4:
@@ -78,8 +100,6 @@ def check_valid_input(ip_addr)->bool:
 if __name__ == '__main__':
     ip_addr = "10.10.1.2"
     sn_mask = "255.255.0.0"
-    check_valid_input(ip_addr)
-    print(conv_dec_to_bin(ip_addr))
-    print(conv_dec_to_bin(sn_mask))
-    print(conv_bin_to_dec(conv_dec_to_bin(ip_addr)))
-    print(conv_bin_to_dec(conv_dec_to_bin(sn_mask)))
+    print(octet_dec_to_bin(1034656421))
+    print(octet_bin_to_dec("00010101010101010101010011"))
+
