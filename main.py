@@ -1,6 +1,6 @@
 def conv_dec_to_bin(addr)->str:
     arr_dec_octet = addr.split(".")
-    arr_bin_octet = ""
+    bin_octet = ""
     # convert dec to bin
     for count, octet in enumerate(arr_dec_octet):
         arr_bin, dec, i = [], int(octet), 0
@@ -18,15 +18,24 @@ def conv_dec_to_bin(addr)->str:
             res = res + str(arr_bin[x])
             x = x - 1
         if count < 3:
-            arr_bin_octet = arr_bin_octet + str(res) + "."
+            bin_octet = bin_octet + str(res) + "."
         else:
-            arr_bin_octet = arr_bin_octet + str(res)
-    return arr_bin_octet
+            bin_octet = bin_octet + str(res)
+    return bin_octet
 
 
-def conv_bin_to_dec():
-    # TODO: set up method
-    return
+def conv_bin_to_dec(addr):
+    arr_bin_oct = addr.split(".")
+    dec_octet = ""
+    for count, octet in enumerate(arr_bin_oct):
+        value = 0
+        for exp, bit in enumerate(reversed(octet)):
+            value = value + ((2**(exp))*int(bit))
+        if count < len(arr_bin_oct) - 1:
+            dec_octet = dec_octet + str(value) + "."
+        else:
+            dec_octet = dec_octet + str(value)
+    return dec_octet
 
 
 def get_subnet_information():
@@ -72,3 +81,5 @@ if __name__ == '__main__':
     check_valid_input(ip_addr)
     print(conv_dec_to_bin(ip_addr))
     print(conv_dec_to_bin(sn_mask))
+    print(conv_bin_to_dec(conv_dec_to_bin(ip_addr)))
+    print(conv_bin_to_dec(conv_dec_to_bin(sn_mask)))
