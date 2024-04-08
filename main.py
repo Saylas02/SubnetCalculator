@@ -101,5 +101,3 @@ def check_valid_input(ip_address) -> bool:
 if __name__ == '__main__':
     ip_addr = "10.10.1.2"
     sn_mask = "255.255.0.0"
-    print(octet_dec_to_bin(1034656421))
-    print(octet_bin_to_dec("00010101010101010101010011"))
