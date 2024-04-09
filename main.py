@@ -86,6 +86,19 @@ def cidr_to_subnet_mask(cidr:int) -> str:
     return sn_mask
 
 
+def convert_valid_input(input_cidr) -> bool:
+    if len(input_cidr) == 3:
+        if int(input_cidr[1:]) not in range(0, 32):
+            print("Input SubnetMask is not in range of 0-32!")
+            return False
+        else:
+            return True
+    else:
+        print("The CIDR is not given in the correct format!\n"
+              "The input format should be like: '1.2.3.4 /24'!")
+        return False
+
+
 def check_valid_input(ip_address) -> bool:
     # separate the octets to arr with 4 entries
     arr_octet = ip_address.split(".")
