@@ -65,17 +65,17 @@ def get_subnet_information():
     return
 
 
-def cidr_to_subnet_mask(cidr:int) -> str:
+def cidr_to_subnet_mask(i_cidr: int) -> str:
     i, sn_mask = 0, ""
     while i < 32:
-        if i < cidr and i % 8 != 0:
+        if i < i_cidr and i % 8 != 0:
             sn_mask = sn_mask + "1"
-        elif i < cidr and i % 8 == 0:
+        elif i < i_cidr and i % 8 == 0:
             if i == 0:
                 sn_mask = sn_mask + "1"
             else:
                 sn_mask = sn_mask + ".1"
-        elif i >= cidr and i % 8 != 0:
+        elif i >= i_cidr and i % 8 != 0:
             sn_mask = sn_mask + "0"
         else:
             if i == 0:
@@ -86,7 +86,7 @@ def cidr_to_subnet_mask(cidr:int) -> str:
     return sn_mask
 
 
-def check_valid_cidr(input_cidr) -> bool:
+def check_valid_cidr(input_cidr: str) -> bool:
     if len(input_cidr) == 2:
         if int(input_cidr) not in range(0, 32):
             print("Input SubnetMask is not in range of 0-32!")
