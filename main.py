@@ -61,7 +61,7 @@ def octet_bin_to_dec(i_bin) -> int:
 
 
 def get_subnet_information():
-    # TODO: set up method (information can be such as: netID, broadcast, first/last usable IP, Gateway?)
+    """TODO: set up method (information can be such as: netID, broadcast, first/last usable IP, Gateway?)"""
     return
 
 
@@ -100,6 +100,7 @@ def check_valid_cidr(input_cidr: str) -> bool:
 
 
 def check_valid_ip(ip_addr) -> bool:
+    """TODO: Subnet Mask has to be analyzied for correct Class recognition"""
     # separate the octets to arr with 4 entries
     arr_octet = ip_addr.split(".")
     if len(arr_octet) != 4:
