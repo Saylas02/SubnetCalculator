@@ -103,7 +103,7 @@ def check_valid_ip(ip_addr) -> bool:
     # separate the octets to arr with 4 entries
     arr_octet = ip_addr.split(".")
     if len(arr_octet) != 4:
-        print("The IP-address does not have 4 octets. Please enter valid IP-Address and run again!")
+        print("The IP-address does not have 4 correct octets. Please enter valid IP-Address and run again!")
         return False
 
     for count, octet in enumerate(arr_octet):
@@ -114,17 +114,17 @@ def check_valid_ip(ip_addr) -> bool:
 
     # Class A Net between 10.0.0.0 and 10.255.255.255
     if int(arr_octet[0]) == 10:
-        print(f"Class A-Net (between 10.0.0.0 and 10.255.255.255) Currently {ip_addr}")
+        print(f"Class A-Net (between 10.0.0.0 and 10.255.255.255), Currently {ip_addr}")
         return True
 
     # Class B Net between 172.16.0.0 and 172.31.255.255
     elif int(arr_octet[0]) == 172 and int(arr_octet[1]) < 32 and int(arr_octet[0]) == 172 and int(arr_octet[1]) > 15:
-        print(f"Class B-Net (between 172.16.0.0 and 172.31.255.255) Currently {ip_addr}")
+        print(f"Class B-Net (between 172.16.0.0 and 172.31.255.255), Currently {ip_addr}")
         return True
 
     # Class C Net between 192.168.0.0 and 192.168.255.255
     elif int(arr_octet[0]) == 192 and int(arr_octet[1]) == 168:
-        print(f"Class C-Net (between 192.168.0.0 and 192.168.255.255) Currently {ip_addr}")
+        print(f"Class C-Net (between 192.168.0.0 and 192.168.255.255), Currently {ip_addr}")
         return True
 
     else:
@@ -135,6 +135,8 @@ def check_valid_ip(ip_addr) -> bool:
 if __name__ == '__main__':
     # setting flags
     valid_ip, valid_cidr = False, False
+    # create array for separated input values ([0]IP_addr, [1]SN_mask)
+    arr_input_values = []
     # loop as long as ip or sn mask are not valid
     while not valid_ip or not valid_cidr:
         # user input
@@ -142,14 +144,14 @@ if __name__ == '__main__':
                            "==>")
         # check if "/" is in input
         if "/" in user_input:
-            # split the input to split_input[0] = ip address, split_input[1] = CIDR
-            split_input = user_input.split("/")
+            # split the input to arr_input_values[0] = ip address, arr_input_values[1] = CIDR
+            arr_input_values = user_input.split("/")
             # loop over all elements to remove spaces
-            for index, elements in enumerate(split_input):
-                # remove all spaces in split_input
-                split_input[index] = split_input[index].replace(" ", "")
+            for index, elements in enumerate(arr_input_values):
+                # remove all spaces in arr_input_values
+                arr_input_values[index] = arr_input_values[index].replace(" ", "")
             # assign values to variables
-            ip_address, cidr = split_input[0], split_input[1]
+            ip_address, cidr = arr_input_values[0], arr_input_values[1]
             # check validation of ip address
             valid_ip = check_valid_ip(ip_address)
             # check valid cidr
@@ -157,3 +159,8 @@ if __name__ == '__main__':
         else:
             # print invalid format
             print("The format is not correct! Please set CIDR with '/' and try again!. ")
+    # get ip address as one String
+    ip_addr_bin, sn_mask_bin = addr_dec_to_bin(arr_input_values[0]), cidr_to_subnet_mask(int(arr_input_values[1]))
+    # print out IP-address and Subnet Mask in binary
+    print(f"IP-Adress in binary: {ip_addr_bin}\n"
+          f"Subnet Mask in binary: {sn_mask_bin}")
