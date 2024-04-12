@@ -61,7 +61,6 @@ def octet_bin_to_dec(i_bin) -> int:
 
 
 def get_subnet_information(i_ip_addr_bin: str, i_cidr: int):
-    """TODO: set up method (information can be such as: netID, broadcast, first/last usable IP, Gateway?)"""
     # split the ip_addr into one string for better iterating
     sep_ip_addr_bin = i_ip_addr_bin.split(".")
     concat_ip_addr = sep_ip_addr_bin[0] + sep_ip_addr_bin[1] + sep_ip_addr_bin[2] + sep_ip_addr_bin[3]
@@ -202,5 +201,5 @@ if __name__ == '__main__':
     # print out IP-address and Subnet Mask in binary
     print(f"IP-Address in binary: {ip_addr_bin}\n"
           f"Subnet Mask in binary: {sn_mask_bin}")
-
+    
     get_subnet_information(ip_addr_bin, cidr)
