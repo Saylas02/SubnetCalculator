@@ -86,22 +86,41 @@ def cidr_to_subnet_mask(i_cidr: int) -> str:
     return sn_mask
 
 
-def check_valid_cidr(input_cidr: str) -> bool:
-    if len(input_cidr) == 2:
-        if int(input_cidr) not in range(0, 32):
-            print("Input SubnetMask is not in range of 0-32!")
-            return False
-        else:
-            return True
-    else:
-        print("The CIDR is not given in the correct format!\n"
-              "The input format should be like: '1.2.3.4 /24'!")
+def check_valid_cidr(input_cidr: int) -> bool:
+    if input_cidr not in range(0, 32):
+        print(f"Given CIDR /{input_cidr} is not valid!\n"
+              f"Enter again.")
         return False
+    else:
+        return True
+
+
+def get_net_class(ip_addr, i_cidr) -> bool:
+    """TODO: Subnet Mask has to be analyzed for correct Class recognition"""
+
+    arr_octet = ip_addr.split(".")
+    # Class A Net between 10.0.0.0 and 10.255.255.255 and CIDR >= 8
+    if int(arr_octet[0]) == 10 and i_cidr >= 8 <= 32:
+        print(f"Class A-Net (between 10.0.0.0 and 10.255.255.255), Currently {ip_addr}")
+        return True
+
+    # Class B Net between 172.16.0.0 and 172.31.255.255 and CIDR >= 16
+    elif int(arr_octet[0]) == 172 and int(arr_octet[1]) < 32 and int(arr_octet[0]) == 172 and int(arr_octet[1]) > 15 \
+            and i_cidr >= 16 <= 32:
+        print(f"Class B-Net (between 172.16.0.0 and 172.31.255.255), Currently {ip_addr}")
+        return True
+
+    # Class C Net between 192.168.0.0 and 192.168.255.255 and CIDR >= 24
+    elif int(arr_octet[0]) == 192 and int(arr_octet[1]) == 168 and 16 <= i_cidr <= 32:
+        print(f"Class C-Net (between 192.168.0.0 and 192.168.255.255), Currently {ip_addr}")
+        return True
+
+    else:
+        print("Not declared as a private network!")
+        return True
 
 
 def check_valid_ip(ip_addr) -> bool:
-    """TODO: Subnet Mask has to be analyzied for correct Class recognition"""
-    # separate the octets to arr with 4 entries
     arr_octet = ip_addr.split(".")
     if len(arr_octet) != 4:
         print("The IP-address does not have 4 correct octets. Please enter valid IP-Address and run again!")
@@ -112,25 +131,7 @@ def check_valid_ip(ip_addr) -> bool:
             print(f"The range of octet {count+1} is too big. "
                   f"Octets must have a size between 0 and 255! Currently: {octet}")
             return False
-
-    # Class A Net between 10.0.0.0 and 10.255.255.255
-    if int(arr_octet[0]) == 10:
-        print(f"Class A-Net (between 10.0.0.0 and 10.255.255.255), Currently {ip_addr}")
-        return True
-
-    # Class B Net between 172.16.0.0 and 172.31.255.255
-    elif int(arr_octet[0]) == 172 and int(arr_octet[1]) < 32 and int(arr_octet[0]) == 172 and int(arr_octet[1]) > 15:
-        print(f"Class B-Net (between 172.16.0.0 and 172.31.255.255), Currently {ip_addr}")
-        return True
-
-    # Class C Net between 192.168.0.0 and 192.168.255.255
-    elif int(arr_octet[0]) == 192 and int(arr_octet[1]) == 168:
-        print(f"Class C-Net (between 192.168.0.0 and 192.168.255.255), Currently {ip_addr}")
-        return True
-
-    else:
-        print("Not declared as a private network!")
-        return True
+    return True
 
 
 if __name__ == '__main__':
@@ -152,16 +153,18 @@ if __name__ == '__main__':
                 # remove all spaces in arr_input_values
                 arr_input_values[index] = arr_input_values[index].replace(" ", "")
             # assign values to variables
-            ip_address, cidr = arr_input_values[0], arr_input_values[1]
+            ip_address, cidr = arr_input_values[0], int(arr_input_values[1])
             # check validation of ip address
             valid_ip = check_valid_ip(ip_address)
             # check valid cidr
             valid_cidr = check_valid_cidr(cidr)
+            # get net class
+            get_net_class(ip_address, cidr)
         else:
             # print invalid format
             print("The format is not correct! Please set CIDR with '/' and try again!. ")
     # get ip address as one String
     ip_addr_bin, sn_mask_bin = addr_dec_to_bin(arr_input_values[0]), cidr_to_subnet_mask(int(arr_input_values[1]))
     # print out IP-address and Subnet Mask in binary
-    print(f"IP-Adress in binary: {ip_addr_bin}\n"
-          f"Subnet Mask in binary: {sn_mask_bin}")
+    print(f"IP-Address in binary: {ip_addr_bin}\n"
+          f"Subnet Mask in binary: {sn_mask_bin}")d
