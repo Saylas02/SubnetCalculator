@@ -96,8 +96,6 @@ def check_valid_cidr(input_cidr: int) -> bool:
 
 
 def get_net_class(ip_addr, i_cidr) -> bool:
-    """TODO: Subnet Mask has to be analyzed for correct Class recognition"""
-
     arr_octet = ip_addr.split(".")
     # Class A Net between 10.0.0.0 and 10.255.255.255 and CIDR >= 8
     if int(arr_octet[0]) == 10 and i_cidr >= 8 <= 32:
