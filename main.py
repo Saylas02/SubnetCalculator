@@ -63,7 +63,7 @@ def octet_bin_to_dec(i_bin) -> int:
 def get_subnet_information(i_ip_addr_bin: str, i_cidr: int):
     """TODO: set up method (information can be such as: netID, broadcast, first/last usable IP, Gateway?)"""
     # split the ip_addr into one string for better iterating
-    sep_ip_addr_bin = ip_addr_bin.split(".")
+    sep_ip_addr_bin = i_ip_addr_bin.split(".")
     concat_ip_addr = sep_ip_addr_bin[0] + sep_ip_addr_bin[1] + sep_ip_addr_bin[2] + sep_ip_addr_bin[3]
     # set concatenated_ip_addr into list
     arr_ip_addr_bin = []
