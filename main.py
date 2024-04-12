@@ -201,5 +201,5 @@ if __name__ == '__main__':
     # print out IP-address and Subnet Mask in binary
     print(f"IP-Address in binary: {ip_addr_bin}\n"
           f"Subnet Mask in binary: {sn_mask_bin}")
-    
+    # get subnet information
     get_subnet_information(ip_addr_bin, cidr)
