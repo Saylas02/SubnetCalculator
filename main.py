@@ -60,9 +60,44 @@ def octet_bin_to_dec(i_bin) -> int:
     return o_dec
 
 
-def get_subnet_information():
+def get_subnet_information(i_ip_addr_bin: str, i_cidr: int):
     """TODO: set up method (information can be such as: netID, broadcast, first/last usable IP, Gateway?)"""
-    return
+    # split the ip_addr into one string for better iterating
+    sep_ip_addr_bin = ip_addr_bin.split(".")
+    concat_ip_addr = sep_ip_addr_bin[0] + sep_ip_addr_bin[1] + sep_ip_addr_bin[2] + sep_ip_addr_bin[3]
+    # set concatenated_ip_addr into list
+    arr_ip_addr_bin = []
+    # set cidr for net and bc loop
+    net_cidr, bc_cidr = i_cidr, i_cidr
+    for char in concat_ip_addr:
+        arr_ip_addr_bin.append(char)
+    arr_net_id, arr_bc_id = arr_ip_addr_bin.copy(), arr_ip_addr_bin.copy()
+    # getting net-ID
+    while net_cidr < 32:
+        arr_net_id[net_cidr] = '0'
+        net_cidr += 1
+    # declare output variable
+    o_net_id = ""
+    for count, values in enumerate(arr_net_id):
+        if count % 8 == 0 and count != 0:
+            o_net_id = o_net_id + "." + values
+        else:
+            o_net_id = o_net_id + values
+    print(f"Net-ID (bin): {o_net_id}\n"
+          f"Net-ID (dec): {addr_bin_to_dec(o_net_id)}")
+    # getting bc-ID
+    while bc_cidr < 32:
+        arr_bc_id[bc_cidr] = '1'
+        bc_cidr += 1
+    # declare output variable
+    o_bc_id = ""
+    for count, values in enumerate(arr_bc_id):
+        if count % 8 == 0 and count != 0:
+            o_bc_id = o_bc_id + "." + values
+        else:
+            o_bc_id = o_bc_id + values
+    print(f"BC-ID (bin): {o_bc_id}\n"
+          f"BC-ID (dec): {addr_bin_to_dec(o_bc_id)}")
 
 
 def cidr_to_subnet_mask(i_cidr: int) -> str:
@@ -88,8 +123,7 @@ def cidr_to_subnet_mask(i_cidr: int) -> str:
 
 def check_valid_cidr(input_cidr: int) -> bool:
     if input_cidr not in range(0, 32):
-        print(f"Given CIDR /{input_cidr} is not valid!\n"
-              f"Enter again.")
+        print(f"Given CIDR /{input_cidr} is not valid!\n")
         return False
     else:
         return True
@@ -137,6 +171,8 @@ if __name__ == '__main__':
     valid_ip, valid_cidr = False, False
     # create array for separated input values ([0]IP_addr, [1]SN_mask)
     arr_input_values = []
+    # initialize ip_address and cidr variable
+    ip_address, cidr = None, None
     # loop as long as ip or sn mask are not valid
     while not valid_ip or not valid_cidr:
         # user input
@@ -166,3 +202,5 @@ if __name__ == '__main__':
     # print out IP-address and Subnet Mask in binary
     print(f"IP-Address in binary: {ip_addr_bin}\n"
           f"Subnet Mask in binary: {sn_mask_bin}")
+
+    get_subnet_information(ip_addr_bin, cidr)
