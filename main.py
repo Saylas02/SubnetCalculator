@@ -167,4 +167,4 @@ if __name__ == '__main__':
     ip_addr_bin, sn_mask_bin = addr_dec_to_bin(arr_input_values[0]), cidr_to_subnet_mask(int(arr_input_values[1]))
     # print out IP-address and Subnet Mask in binary
     print(f"IP-Address in binary: {ip_addr_bin}\n"
-          f"Subnet Mask in binary: {sn_mask_bin}")d
+          f"Subnet Mask in binary: {sn_mask_bin}")
