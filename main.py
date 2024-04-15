@@ -1,3 +1,5 @@
+# TODO: add IPv6
+
 def addr_dec_to_bin(addr) -> str:
     arr_dec_octet = addr.split(".")
     bin_octet = ""
@@ -97,6 +99,7 @@ def get_subnet_information(i_ip_addr_bin: str, i_cidr: int):
             o_bc_id = o_bc_id + values
     print(f"BC-ID (bin): {o_bc_id}\n"
           f"BC-ID (dec): {addr_bin_to_dec(o_bc_id)}")
+    return
 
 
 def cidr_to_subnet_mask(i_cidr: int) -> str:
