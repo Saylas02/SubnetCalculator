@@ -156,8 +156,8 @@ def check_valid_cidr(input_cidr: int) -> bool:
         return True
 
 
-def get_amt_of_clients(cidr: int) -> bool:
-    diff = 32-cidr
+def get_amt_of_clients(i_cidr: int) -> bool:
+    diff = 32-i_cidr
     amt = 2**diff-2
     print(f"The subnet has {amt} Client IP-addresses.")
     return True
