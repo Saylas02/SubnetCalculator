@@ -112,7 +112,6 @@ def get_subnet_information(i_ip_addr_bin: str, i_cidr: int):
     print(f"BC-ID (bin): {bin_bc_id}\n"
           f"BC-ID (dec): {dec_bc_id}")
     # get first usable address
-    frst_usbl_addr, lst_usbl_addr = "", ""
     split_net_addr = dec_net_id.split(".")
     tmp = int(split_net_addr[3])+1
     split_net_addr[3] = str(tmp)
@@ -123,8 +122,8 @@ def get_subnet_information(i_ip_addr_bin: str, i_cidr: int):
     split_bc_addr[3] = str(tmp)
     lst_usbl_addr = arr_to_str(split_bc_addr)
     # print
-    print(f"The first usable IP-address is: {frst_usbl_addr}\n"
-          f"The last usable IP-address is: {lst_usbl_addr}")
+    print(f"First usable IP-address: {frst_usbl_addr}\n"
+          f"Last usable IP-address: {lst_usbl_addr}")
     return True
 
 
