@@ -62,6 +62,16 @@ def octet_bin_to_dec(i_bin) -> int:
     return o_dec
 
 
+def arr_dec_to_ipv4(dec_arr: list) -> str:
+    ret_ipv4 = ""
+    for count, pos in enumerate(dec_arr):
+        if count == 0:
+            ret_ipv4 = ret_ipv4 + pos
+        else:
+            ret_ipv4 = ret_ipv4 + "." + pos
+    return ret_ipv4
+
+
 def get_subnet_information(i_ip_addr_bin: str, i_cidr: int):
     # split the ip_addr into one string for better iterating
     sep_ip_addr_bin = i_ip_addr_bin.split(".")
@@ -78,28 +88,39 @@ def get_subnet_information(i_ip_addr_bin: str, i_cidr: int):
         arr_net_id[net_cidr] = '0'
         net_cidr += 1
     # declare output variable
-    o_net_id = ""
+    bin_net_id = ""
     for count, values in enumerate(arr_net_id):
         if count % 8 == 0 and count != 0:
-            o_net_id = o_net_id + "." + values
+            bin_net_id = bin_net_id + "." + values
         else:
-            o_net_id = o_net_id + values
-    print(f"Net-ID (bin): {o_net_id}\n"
-          f"Net-ID (dec): {addr_bin_to_dec(o_net_id)}")
+            bin_net_id = bin_net_id + values
+    dec_net_id = addr_bin_to_dec(bin_net_id)
+    print(f"Net-ID (bin): {bin_net_id}\n"
+          f"Net-ID (dec): {dec_net_id}")
     # getting bc-ID
     while bc_cidr < 32:
         arr_bc_id[bc_cidr] = '1'
         bc_cidr += 1
     # declare output variable
-    o_bc_id = ""
+    bin_bc_id = ""
     for count, values in enumerate(arr_bc_id):
         if count % 8 == 0 and count != 0:
-            o_bc_id = o_bc_id + "." + values
+            bin_bc_id = bin_bc_id + "." + values
         else:
-            o_bc_id = o_bc_id + values
-    print(f"BC-ID (bin): {o_bc_id}\n"
-          f"BC-ID (dec): {addr_bin_to_dec(o_bc_id)}")
-    return
+            bin_bc_id = bin_bc_id + values
+    dec_bc_id = addr_bin_to_dec(bin_bc_id)
+    print(f"BC-ID (bin): {bin_bc_id}\n"
+          f"BC-ID (dec): {dec_bc_id}")
+
+    frst_usbl_addr, lst_usbl_addr = "", ""
+    spltd_addr = dec_net_id.split(".")
+    tmp = int(spltd_addr[3])+1
+    spltd_addr[3] = str(tmp)
+    print(spltd_addr)
+    debug = arr_dec_to_ipv4(spltd_addr)
+    print(debug)
+
+    return True
 
 
 def cidr_to_subnet_mask(i_cidr: int) -> str:
@@ -202,7 +223,8 @@ if __name__ == '__main__':
     # get ip address as one String
     ip_addr_bin, sn_mask_bin = addr_dec_to_bin(arr_input_values[0]), cidr_to_subnet_mask(int(arr_input_values[1]))
     # print out IP-address and Subnet Mask in binary
-    print(f"IP-Address in binary: {ip_addr_bin}\n"
-          f"Subnet Mask in binary: {sn_mask_bin}")
+    print(f"IP-Address (bin): {ip_addr_bin}\n"
+          f"Subnet Mask (dec): {addr_bin_to_dec(sn_mask_bin)}\n"
+          f"Subnet Mask (bin): {sn_mask_bin}\n")
     # get subnet information
     get_subnet_information(ip_addr_bin, cidr)
