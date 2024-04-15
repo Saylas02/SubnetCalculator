@@ -110,7 +110,7 @@ def get_subnet_information(i_ip_addr_bin: str, i_cidr: int):
             bin_bc_id = bin_bc_id + values
     dec_bc_id = addr_bin_to_dec(bin_bc_id)
     print(f"BC-ID (bin): {bin_bc_id}\n"
-          f"BC-ID (dec): {dec_bc_id}")
+          f"BC-ID (dec): {dec_bc_id}\n")
     # get first usable address
     split_net_addr = dec_net_id.split(".")
     tmp = int(split_net_addr[3])+1
@@ -156,26 +156,33 @@ def check_valid_cidr(input_cidr: int) -> bool:
         return True
 
 
+def get_amt_of_clients(cidr: int) -> bool:
+    diff = 32-cidr
+    amt = 2**diff-2
+    print(f"The subnet has {amt} Client IP-addresses.")
+    return True
+
+
 def get_net_class(ip_addr, i_cidr) -> bool:
     arr_octet = ip_addr.split(".")
     # Class A Net between 10.0.0.0 and 10.255.255.255 and CIDR >= 8
     if int(arr_octet[0]) == 10 and i_cidr >= 8 <= 32:
-        print(f"Class A-Net (between 10.0.0.0 and 10.255.255.255), Currently {ip_addr}")
+        print(f"Class A-Net (between 10.0.0.0 and 10.255.255.255), Currently {ip_addr}\n")
         return True
 
     # Class B Net between 172.16.0.0 and 172.31.255.255 and CIDR >= 16
     elif int(arr_octet[0]) == 172 and int(arr_octet[1]) < 32 and int(arr_octet[0]) == 172 and int(arr_octet[1]) > 15 \
             and i_cidr >= 16 <= 32:
-        print(f"Class B-Net (between 172.16.0.0 and 172.31.255.255), Currently {ip_addr}")
+        print(f"Class B-Net (between 172.16.0.0 and 172.31.255.255), Currently {ip_addr}\n")
         return True
 
     # Class C Net between 192.168.0.0 and 192.168.255.255 and CIDR >= 24
     elif int(arr_octet[0]) == 192 and int(arr_octet[1]) == 168 and 16 <= i_cidr <= 32:
-        print(f"Class C-Net (between 192.168.0.0 and 192.168.255.255), Currently {ip_addr}")
+        print(f"Class C-Net (between 192.168.0.0 and 192.168.255.255), Currently {ip_addr}\n")
         return True
 
     else:
-        print("Not declared as a private network!")
+        print("Not declared as private network!\n")
         return True
 
 
@@ -227,8 +234,11 @@ if __name__ == '__main__':
     # get ip address as one String
     ip_addr_bin, sn_mask_bin = addr_dec_to_bin(arr_input_values[0]), cidr_to_subnet_mask(int(arr_input_values[1]))
     # print out IP-address and Subnet Mask in binary
-    print(f"IP-Address (bin): {ip_addr_bin}\n"
+    print(f"IP-Address (dec): {ip_address}\n"
+          f"IP-Address (bin): {ip_addr_bin}\n"
           f"Subnet Mask (dec): {addr_bin_to_dec(sn_mask_bin)}\n"
           f"Subnet Mask (bin): {sn_mask_bin}\n")
     # get subnet information
     get_subnet_information(ip_addr_bin, cidr)
+    # get the amount of subnets and hosts/subnet that can be made
+    get_amt_of_clients(cidr)
