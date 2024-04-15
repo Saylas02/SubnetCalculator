@@ -62,14 +62,24 @@ def octet_bin_to_dec(i_bin) -> int:
     return o_dec
 
 
-def arr_dec_to_ipv4(dec_arr: list) -> str:
-    ret_ipv4 = ""
+def arr_dec_to_ipv4_str(dec_arr: list) -> str:
+    dec_str = ""
     for count, pos in enumerate(dec_arr):
         if count == 0:
-            ret_ipv4 = ret_ipv4 + pos
+            dec_str = dec_str + pos
         else:
-            ret_ipv4 = ret_ipv4 + "." + pos
-    return ret_ipv4
+            dec_str = dec_str + "." + pos
+    return dec_str
+
+
+def arr_bin_to_ipv4_str(bin_arr: list) -> str:
+    bin_str = ""
+    for count, pos in enumerate(bin_arr):
+        if count == 0:
+            bin_str = bin_str + pos
+        else:
+            bin_str = bin_str + "." + pos
+    return bin_str
 
 
 def get_subnet_information(i_ip_addr_bin: str, i_cidr: int):
@@ -117,7 +127,7 @@ def get_subnet_information(i_ip_addr_bin: str, i_cidr: int):
     tmp = int(spltd_addr[3])+1
     spltd_addr[3] = str(tmp)
     print(spltd_addr)
-    debug = arr_dec_to_ipv4(spltd_addr)
+    debug = arr_dec_to_ipv4_str(spltd_addr)
     print(debug)
 
     return True
