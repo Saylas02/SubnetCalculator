@@ -17,6 +17,7 @@ def dec_to_hex(dec_value: int) -> str:
         hex_value = hex_value + str(values)
     return hex_value
 
+# TODO: clean up code (duplicates like line while loop in addr_dec_to_bin and octet_dec_to_bin)
 
 def addr_dec_to_bin(addr) -> str:
     arr_dec_octet = addr.split(".")
