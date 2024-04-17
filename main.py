@@ -1,4 +1,4 @@
-# TODO: add IPv6
+# TODO: add IPv6 (function: hex_to_dec)
 
 def dec_to_hex(dec_value: int) -> str:
     dict_hex_values = {10: 'a', 11: 'b', 12: 'c', 13: 'd', 14: 'e', 15: 'f'}
