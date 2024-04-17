@@ -8,14 +8,15 @@ def dec_to_hex(dec_value: int) -> str:
         dec_value = dec_value // 16
         arr_result.append(dec_value)
         i += 1
-    for index, elements in enumerate(arr_remain):
-        if elements > 9:
-            arr_remain[index] = dict_hex_values[elements]
+    for count, values in enumerate(arr_remain):
+        if values > 9:
+            arr_remain[count] = dict_hex_values[values]
         else:
-            arr_remain[index] = str(elements)
-    for elements in arr_remain[::-1]:
-        hex_value = hex_value + str(elements)
+            arr_remain[count] = str(values)
+    for values in arr_remain[::-1]:
+        hex_value = hex_value + str(values)
     return hex_value
+
 
 def addr_dec_to_bin(addr) -> str:
     arr_dec_octet = addr.split(".")
