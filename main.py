@@ -1,5 +1,22 @@
 # TODO: add IPv6
 
+def dec_to_hex(dec_value: int) -> str:
+    dict_hex_values = {10: 'a', 11: 'b', 12: 'c', 13: 'd', 14: 'e', 15: 'f'}
+    i, arr_result, arr_remain, hex_value = 0, [], [], ""
+    while dec_value != 0:
+        arr_remain.append(dec_value % 16)
+        dec_value = dec_value // 16
+        arr_result.append(dec_value)
+        i += 1
+    for index, elements in enumerate(arr_remain):
+        if elements > 9:
+            arr_remain[index] = dict_hex_values[elements]
+        else:
+            arr_remain[index] = str(elements)
+    for elements in arr_remain[::-1]:
+        hex_value = hex_value + str(elements)
+    return hex_value
+
 def addr_dec_to_bin(addr) -> str:
     arr_dec_octet = addr.split(".")
     bin_octet = ""
