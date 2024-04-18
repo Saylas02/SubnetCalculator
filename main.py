@@ -17,6 +17,20 @@ def dec_to_hex(dec_value: int) -> str:
         hex_value = hex_value + str(values)
     return hex_value
 
+
+def hex_to_dec(hex_value: str) -> int:
+    dict_hex_values = {'a': 10, 'b': 11, 'c': 12, 'd': 13, 'e': 14, 'f': 15}
+    arr_hex_values, dec_value = [], 0
+    for values in hex_value:
+        if values.lower() in dict_hex_values:
+            arr_hex_values.append(dict_hex_values[values.lower()])
+        else:
+            arr_hex_values.append(values)
+    for exp, bit in enumerate(reversed(arr_hex_values)):
+        dec_value = dec_value + ((16**exp) * int(bit))
+    return dec_value
+
+
 # TODO: clean up code (duplicates like line while loop in addr_dec_to_bin and octet_dec_to_bin)
 
 def addr_dec_to_bin(addr) -> str:
